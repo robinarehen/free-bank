@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "a679cfd5-7586-4a19-aeb6-2c22c87c6cab",
+		"name": "Free-bank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{httpPort}}/transactions/{{page}}/{{pageSize}}",
+					"host": [
+						"{{httpPort}}"
+					],
+					"path": [
+						"transactions",
+						"{{page}}",
+						"{{pageSize}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get by reference",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{httpPort}}/transactions/search?reference=8oKkqByt2K&channel=CLIENT",
+					"host": [
+						"{{httpPort}}"
+					],
+					"path": [
+						"transactions",
+						"search"
+					],
+					"query": [
+						{
+							"key": "reference",
+							"value": "8oKkqByt2K"
+						},
+						{
+							"key": "channel",
+							"value": "CLIENT"
+						},
+						{
+							"key": "channel",
+							"value": "ATM",
+							"disabled": true
+						},
+						{
+							"key": "channel",
+							"value": "INTERNAL",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get by account iban",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{httpPort}}/transactions/search?accountIban=ES9820385778983000760236",
+					"host": [
+						"{{httpPort}}"
+					],
+					"path": [
+						"transactions",
+						"search"
+					],
+					"query": [
+						{
+							"key": "accountIban",
+							"value": "ES9820385778983000760236"
+						},
+						{
+							"key": "order",
+							"value": "DESC",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reference\":\"12345A\",\r\n    \"accountIban\":\"ES9820385778983000760236\",\r\n    \"date\":\"2020-08-19T16:55:42.000Z\",\r\n    \"amount\":193.38,\r\n    \"fee\":3.18,\r\n    \"description\":\"Restaurant payment\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{httpPort}}/transactions",
+					"host": [
+						"{{httpPort}}"
+					],
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "254396ad-87c9-404e-a8da-08546622b661",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8f7060d9-f8f0-4161-916b-6766911ed672",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "d9f79623-4064-4d6f-8692-23f121aa804d",
+			"key": "httpPort",
+			"value": "http://localhost:8080/api"
+		},
+		{
+			"id": "fb7cd8ea-adaa-4ccb-908d-48dbae362ccc",
+			"key": "page",
+			"value": "0"
+		},
+		{
+			"id": "194d1be8-d8a7-4747-a85c-3123222479fe",
+			"key": "pageSize",
+			"value": "10"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
