@@ -47,11 +47,11 @@ public class TransactionServiceImpl implements TransactionService {
 	public TransactionDto create(TransactionDto dto) {
 		// TODO Auto-generated method stub
 		this.createUpdateAccount(dto);
-		
-		if(this.repository.findByReference(dto.getReference()).isPresent()) {
+
+		if (this.repository.findByReference(dto.getReference()).isPresent()) {
 			throw new IllegalArgumentException("La referencia ya existe");
 		}
-		
+
 		TransactionEntity entity = this.mapperUtil.dtoToEntity(TransactionEntity.class, dto);
 		return this.mapperUtil.entityToDto(TransactionDto.class, this.repository.save(entity));
 	}
@@ -59,7 +59,7 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public ResponseDto getByReference(String reference, String channel) {
 		// TODO Auto-generated method stub
-		return this.getResponse(reference, channel);
+		return this.getResponseDto(reference, channel);
 	}
 
 	@Override
@@ -76,29 +76,33 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	private void createUpdateAccount(TransactionDto dto) {
-		AccountDto accountDto = this.accountService.getByAccountIban(dto.getAccountIban());
-		Double amount = dto.getAmount();
-		if (accountDto == null) {
-			accountDto = new AccountDto();
-			accountDto.setAccountIban(dto.getAccountIban());
+		Optional<AccountDto> accountDto = this.accountService.getByAccountIban(dto.getAccountIban());
+
+		AccountDto accountSave = accountDto.map(account -> {
+			Double amount = dto.getAmount();
+			if (amount > 0) {
+				amount += account.getAmount();
+			} else if (account.getAmount() < Math.abs(dto.getAmount())) {
+				// Math.abs : change a negative number to positive number
+				throw new IllegalArgumentException("Saldo Insuficiente para un debito.");
+			}
+			amount = account.getAmount() - Math.abs(dto.getAmount());
+			account.setAmount(amount);
+			return account;
+		}).orElseGet(() -> {
+			Double amount = dto.getAmount();
+			AccountDto account = new AccountDto();
+			account.setAccountIban(dto.getAccountIban());
 			if (dto.getAmount() < 0) {
 				throw new IllegalArgumentException("Una cuenta nueva no puede inicar con un debito.");
 			}
-		} else {
-			if (amount > 0) {
-				amount += accountDto.getAmount();
-			} else {
-				if (accountDto.getAmount() < Math.abs(dto.getAmount())) {
-					throw new IllegalArgumentException("Saldo Insuficiente para un debito.");
-				}
-				amount = accountDto.getAmount() - Math.abs(dto.getAmount());
-			}
-		}
-		accountDto.setAmount(amount);
-		this.accountService.create(accountDto);
+			account.setAmount(amount);
+			return account;
+		});
+		this.accountService.create(accountSave);
 	}
 
-	private ResponseDto getResponse(String reference, String channel) {
+	private ResponseDto getResponseDto(String reference, String channel) {
 
 		ResponseDto responseDto = new ResponseDto();
 		Optional<TransactionEntity> entity = this.repository.findByReference(reference);
@@ -130,7 +134,7 @@ public class TransactionServiceImpl implements TransactionService {
 			}).get();
 		}
 
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("invalid channel");
 	}
 
 	private String getStatus(LocalDate transactionDate) {

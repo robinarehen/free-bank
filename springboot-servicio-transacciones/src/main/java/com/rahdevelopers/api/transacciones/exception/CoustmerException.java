@@ -18,7 +18,7 @@ public class CoustmerException {
 		responseException = new HashMap<>();
 
 		responseException.put("status", "error");
-		responseException.put("statusCode", "400");
+		responseException.put("code", "400");
 		responseException.put("message", exception.getMessage());
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseException);

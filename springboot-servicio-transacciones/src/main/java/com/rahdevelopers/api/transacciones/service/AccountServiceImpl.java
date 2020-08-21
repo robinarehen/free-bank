@@ -1,5 +1,7 @@
 package com.rahdevelopers.api.transacciones.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +31,11 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public AccountDto getByAccountIban(String accountIban) {
+	public Optional<AccountDto> getByAccountIban(String accountIban) {
 		// TODO Auto-generated method stub
 		return this.repository.findByAccountIban(accountIban).map( entity -> {
 			return this.mapperUtil.entityToDto(AccountDto.class, entity);
-		}).orElse(null);
+		});
 	}
 
 }

@@ -30,7 +30,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{httpPort}}/transactions/search?reference=8oKkqByt2K&channel=CLIENT",
+					"raw": "{{httpPort}}/transactions/search?reference=12345A&channel=CLIENT",
 					"host": [
 						"{{httpPort}}"
 					],
@@ -41,7 +41,7 @@
 					"query": [
 						{
 							"key": "reference",
-							"value": "8oKkqByt2K"
+							"value": "12345A"
 						},
 						{
 							"key": "channel",
@@ -98,7 +98,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"reference\":\"12345A\",\r\n    \"accountIban\":\"ES9820385778983000760236\",\r\n    \"date\":\"2020-08-19T16:55:42.000Z\",\r\n    \"amount\":193.38,\r\n    \"fee\":3.18,\r\n    \"description\":\"Restaurant payment\"\r\n}",
+					"raw": "{\r\n    \"reference\":\"12345D\",\r\n    \"accountIban\":\"ES9820385778983000760236\",\r\n    \"date\":\"2020-08-19T16:55:42.000Z\",\r\n    \"amount\":-196.38,\r\n    \"fee\":3.18,\r\n    \"description\":\"Restaurant payment\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -142,17 +142,17 @@
 	],
 	"variable": [
 		{
-			"id": "d9f79623-4064-4d6f-8692-23f121aa804d",
+			"id": "1e55f0ea-4bed-4e8b-9c98-c65930b42811",
 			"key": "httpPort",
 			"value": "http://localhost:8080/api"
 		},
 		{
-			"id": "fb7cd8ea-adaa-4ccb-908d-48dbae362ccc",
+			"id": "245c466c-5792-4c55-86a0-9e3247457a29",
 			"key": "page",
 			"value": "0"
 		},
 		{
-			"id": "194d1be8-d8a7-4747-a85c-3123222479fe",
+			"id": "db79bfef-5965-4d04-bc1e-2678125dc4bb",
 			"key": "pageSize",
 			"value": "10"
 		}
