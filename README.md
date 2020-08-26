@@ -27,7 +27,7 @@ spring.cloud.config.server.git.uri=file:///C:/Users/robin/Documents/workspace-st
 ```
 
 # Iniciar los Proyectos
-Los proyectos se deben ejecutar de forma secuencial, debido a que hay proyectos que son necesarios que este en ejcuación antes de iniciar todos los proyectos.
+Los proyectos se deben ejecutar de forma secuencial, debido a que hay proyectos que son necesarios que este en ejecución antes de iniciar todos los proyectos.
 
 1. `springboot-servicio-config-server` se debe ejecutar primero debido a que es el encargado de tener las propiedades disponibles.
 
@@ -46,7 +46,7 @@ los parametros para acceder son:
  User name : sa
  password :
 ```
-Al iniciar el proyecto se crean transacciones de ejemplo, las cuales puenden ser consultas con las siguientes consultas.
+Al iniciar el proyecto se crean transacciones de ejemplo, las cuales puenden ser consultadas con las siguientes querys.
 
 ```sql
 SELECT * FROM ACCOUNTS ;
@@ -54,7 +54,7 @@ SELECT * FROM TRANSACTIONS ;
 ```
 
 # Pruebas con postman
-Para realizar las pruebas en el aplicativo `Postman` se crea una collección la cual queda en la ubicación `~/Documents/Free-bank.postman_collection.json`, esta colleción se debe importar a `Postman`, una vez en `Postman` se podra visual la carpeta de nombre `Free-bank` con los metodos de consulta:
+Para realizar las pruebas en el aplicativo `Postman` se crea una collección la cual queda en la ubicación `~/Documents/Free-bank.postman_collection.json`, esta colleción se debe importar a `Postman`, una vez en `Postman` se podra visualizar la carpeta de nombre `Free-bank` con los metodos de consulta:
 ```
 GET - getAll
 GET - get by reference
